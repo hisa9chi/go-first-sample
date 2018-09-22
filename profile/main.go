@@ -73,7 +73,7 @@ func PostProfile(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 func GetProfile(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	name := p.ByName("name")
 
-	resUserProfile := checkUsers(name)
+	resUserProfile := CheckUsers(name)
 
 	if resUserProfile == nil {
 		http.Error(w, fmt.Sprintf("%d Not Found", http.StatusNotFound), http.StatusNotFound)
@@ -89,7 +89,7 @@ func GetProfile(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 // 指定されたnameと同じuser profile を取得する
-func checkUsers(name string) *models.UserProfile {
+func CheckUsers(name string) *models.UserProfile {
 	for _, user := range users {
 		if name == user.Name {
 			return &user
