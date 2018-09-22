@@ -1,5 +1,6 @@
 package models
 
+// ユーザプロフィール
 type UserProfile struct {
 	Name          string   `json:"name"`
 	Age           int      `json:"age"`
