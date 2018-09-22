@@ -7,18 +7,13 @@ import (
 	"log"
 	"net/http"
 
+	"./models"
+
 	"github.com/julienschmidt/httprouter"
 )
 
-type UserProfile struct {
-	Name          string   `json:"name"`
-	Age           int      `json:"age"`
-	Gender        string   `json:"gender"`
-	FavoriteFoods []string `json:"favaorite_foods"`
-}
-
 // 初期登録ユーザ
-var users []UserProfile = []UserProfile{
+var users []models.UserProfile = []models.UserProfile{
 	{
 		Name:          "Bob",
 		Age:           25,
@@ -42,7 +37,7 @@ func PostProfile(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	var reqProfile UserProfile
+	var reqProfile models.UserProfile
 	err = json.Unmarshal(body, &reqProfile)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -94,7 +89,7 @@ func GetProfile(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 // 指定されたnameと同じuser profile を取得する
-func checkUsers(name string) *UserProfile {
+func checkUsers(name string) *models.UserProfile {
 	for _, user := range users {
 		if name == user.Name {
 			return &user
